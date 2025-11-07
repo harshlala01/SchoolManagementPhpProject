@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Student Marksheet</title>
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="css/ruang-admin.min.css" rel="stylesheet">
+  <link rel="icon" href="img/logo/techShell.jpg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+      color: #000;
+    }
+
+    .report-card {
+      background: #fff;
+      width: 900px;
+      margin: auto;
+      padding: 20px;
+      border: 2px solid #000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Watermark */
+    .report-card::before {
+      content: "";
+      position: absolute;
+      top: 58%;
+      left: 50%;
+      width: 700px;
+      height: 700px;
+      background: url('./img/logo/schoolLogo.png') no-repeat center center;
+      background-size: contain;
+      opacity: 0.10;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+
+    .report-card * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .header img {
+      height: 100px;
+    }
+
+    .header h1 {
+      color: #000;
+      margin: 5px 0;
+    }
+
+    .header h3, .header h2 {
+      margin: 3px 0;
+      color: #3d62a5;
+    }
+
+    .header p {
+      color: #5e92bd;
+      font-weight: bold;
+      margin: 2px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 6px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .info-table td {
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .marks-table th {
+      background-color: #dce6f1;
+      font-weight: bold;
+    }
+
+    .marks-table td {
+      /* background-color: #fff; */
+    }
+
+    .marks-table tr:nth-child(3) td {
+      font-weight: bold;
+    }
+
+    .summary-table th,
+    .summary-table td:nth-child(odd) {
+      background-color: #f4b183;
+      font-weight: bold;
+    }
+
+    .summary-table td:nth-child(even) {
+      background-color: #fff;
+    }
+
+    .co-scholastic-table th {
+      background-color: #d1ecf1;
+    }
+
+    .co-scholastic-table td {
+      /* background-color: #f8f9fa; */
+    }
+
+    .result-table th {
+      background-color: #c3e6cb;
+    }
+
+    .result-table td {
+      /* background-color: #e2f0d9; */
+    }
+
+    .bottom-section {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .left-section {
+      width: 60%;
+    }
+
+    .right-section {
+      width: 40%;
+    }
+
+    .admission-box {
+      border: 1px solid #000;
+      font-size: 13px;
+      text-align: center;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #fff3cd;
+    }
+
+    .remarks {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 14px;
+      color: #155724;
+    }
+
+    .signatures {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    .signatures div {
+      width: 30%;
+      text-align: center;
+    }
+
+    .grade-scale th {
+      background-color: #dee2e6;
+    }
+
+    .grade-scale td {
+      background-color: #f8f9fa;
+    }
+
+    .grade-scale th, .grade-scale td {
+      border: 1px solid #000;
+      padding: 6px;
+      font-size: 13px;
+      text-align: center;
+    }
+   /* .school-info {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .school-info h1 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .school-info p {
+      margin: 2px 0;
+      font-size: 14px;
+    }
+    .school-info a {
+      color: blue;
+    }
+     .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    } */
+      .report-header {
+      background: #fff;
+      border: 2px solid #000;
+      padding: 20px;
+      width: 900px;
+      margin: auto;
+      position: relative;
+    }
+    .school-logo-top {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .school-logo-top img {
+      height: 150px;
+    }
+    .school-info {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .school-info h1 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .school-info p {
+      margin: 2px 0;
+      font-size: 14px;
+    }
+    .school-info a {
+      color: blue;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .left-logo img,
+    .right-photo img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border: 1px solid #000;
+    }
+    .report-title {
+      text-align: center;
+      margin: 10px 0;
+    }
+    .report-title h4 {
+      margin: 0;
+      font-weight: bold;
+    }
+    .student-info {
+      margin-top: 10px;
+    }
+    .student-info table {
+      width: 100%;
+      font-size: 14px;
+    }
+    .student-info td {
+      padding: 4px;
+    }
+    .signatures {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 40px;
+      gap: 10px;
+    }
+    .signatures div {
+      width: 30%;
+      text-align: center;
+    }
+    .signatures img {
+      height: 50px;
+      display: block;
+      margin: 0 auto 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-card">
+
+  <!-- Header -->
+  <!-- <div class="header">
+    <img src="./img/logo/schoolLogo.png" alt="School Logo">
+    <h1>HERITAGE DAY SCHOOL</h1>
+    <h3>Nagaurkra, Barasat Para, Haringhata, Nadia, WB</h3>
+    <p>Office: 7364916702 / 9064109172</p>
+    <p>(Affiliated to WBBSE. Code: 123456)</p>
+    <h2>Half Yearly Examination 2024–2025</h2>
+    <h3>PROGRESS REPORT – CLASS 5</h3>
+  </div> -->
+  <!-- <img src="./img/logo/schoolLogo.png" alt="School Logo"> -->
+  <!-- <div class="school-info">
+      <h1>HERITAGE DAY SCHOOL</h1>
+      <p>Nagaurkra, Barasat Para, Haringhata, Nadia, WB</p>
+      <p>Affiliated To : CBSE Board / Affiliation No : 2512A4S200</p>
+      <p>Ph +91 8808498469, Email: info@yourschoolname.com</p>
+      <p>Visit us : <a href="https://www.yourschoolwebsite.com">www.yourschoolwebsite.com</a></p>
+    </div>
+      <div class="header-row">
+      <div class="left-logo">
+        <img src="./img/logo/schoolEmblem.png" alt="School Emblem">
+      </div>
+      <div class="report-title">
+        <h4>Academic Report</h4>
+        <p>Academic Session : 2019-2020</p>
+        <p><strong>Class : 4</strong></p>
+      </div>
+      <div class="right-photo">
+        <img src="./img/students/student1.png" alt="Student Photo">
+      </div>
+    </div> -->
+    
+    <!-- Logo at Top Center -->
+    <div class="school-logo-top">
+      <img src="./img/logo/schoolLogo.png" alt="School Logo">
+    </div>
+
+    <!-- School Info -->
+    <div class="school-info">
+      <h1>HERITAGE DAY SCHOOL</h1>
+      <p>Nagaurkra, Barasat Para, Haringhata, Nadia, WB</p>
+      <p>(Affiliated to WBBSE. Code: 123456)</p>
+        <p>Office: 7364916702 / 9064109172</p>
+      <!-- <p>Ph +91 8808498469, Email: info@yourschoolname.com</p>
+      <p>Visit us : <a href="https://www.yourschoolwebsite.com">www.yourschoolwebsite.com</a></p> -->
+    </div>
+
+    <!-- Row with Title and Student Photo -->
+    <div class="header-row">
+      <div class="left-logo">
+        <!-- Left space, optional image -->
+      </div>
+      <div class="report-title">
+        <h4>Academic Report</h4>
+        <p>Academic Session : 2019-2020</p>
+        <p><strong>Class : 4</strong></p>
+      </div>
+      <div class="right-photo">
+        <!-- <img src="./img/students/student1.png" alt="Student Photo"> -->
+      </div>
+    </div>
+
+   
+
+  <!-- Student Info -->
+  <table class="info-table">
+    <tr><td><strong>Name of Student :</strong> Rahul Sharma</td><td><strong>Roll No. :</strong> 12</td></tr>
+    <tr><td><strong>Mother's Name :</strong> MRS. HEENA</td><td><strong>Admission No :</strong> 122</td></tr>
+    <tr><td><strong>Father's Name :</strong> Mr. Ramesh Sharma</td><td><strong>Date of Birth :</strong> 24/09/2014</td></tr>
+    <tr><td colspan="2"><strong>Address :</strong> 123/ab, xyzadc Road Kolkata-705452</td></tr>
+  </table>
+
+  <!-- Marks Table -->
+  <table class="marks-table"  style="margin-bottom: 0;">
+    <tr>
+      <th rowspan="2" style="width: 22%;">Scholastic Areas</th>
+      <th colspan="2" style="width: 28%;">Term I</th>
+      <th colspan="2" style="width: 28%;">Overall</th>
+    </tr>
+    <tr>
+      <th style="width: 14%;">HALF YEARLY</th>
+      <th style="width: 14%;">Total</th>
+      <th style="width: 14%;">Grand Total</th>
+      <th style="width: 14%;">Grade</th>
+    </tr>
+    <tr><td><strong>Subject</strong></td><td><strong>60</strong></td><td><strong>60</strong></td><td><strong>60</strong></td><td><strong>Grade</strong></td></tr>
+    <tr><td>HINDI</td><td>50</td><td>50</td><td>50</td><td>A</td></tr>
+    <tr><td>ENGLISH</td><td>48</td><td>48</td><td>48</td><td>B+</td></tr>
+    <tr><td>MATHS</td><td>51</td><td>51</td><td>51</td><td>A</td></tr>
+    <tr><td>COMPUTER</td><td>47</td><td>47</td><td>47</td><td>B+</td></tr>
+    <tr><td>EVS</td><td>59</td><td>59</td><td>59</td><td>A+</td></tr>
+    <tr><td>PRACTICAL</td><td>48</td><td>48</td><td>48</td><td>B+</td></tr>
+  </table>
+
+  <!-- Summary -->
+  <table class="summary-table" style="margin-top: 0;">
+    <tr>
+      <th>Attendance</th><td>0/160</td>
+      <th>Total Marks</th><td>303 / 360</td>
+      <th>Percentage</th><td>84.17%</td>
+      <th>Grade</th><td>A</td>
+    </tr>
+  </table>
+
+  <!-- Co-Scholastic & Result -->
+  <div class="bottom-section">
+    <div class="left-section">
+      <table class="co-scholastic-table">
+        <tr><th colspan="2">Co-Scholastic Areas</th></tr>
+        <tr><td>Discipline</td><td>Excellent</td></tr>
+        <tr><td>Listening Skill</td><td>Good Listener</td></tr>
+        <tr><td>Reading Skill</td><td>Fluent</td></tr>
+        <tr><td>Writing Skill</td><td>Awesome</td></tr>
+        <tr><td>Creative Thinking</td><td>Good Creator</td></tr>
+        <tr><td>Interest</td><td>Reading</td></tr>
+        <tr><td>Hobby</td><td>Swimming</td></tr>
+      </table>
+    </div>
+    <div class="right-section">
+      <table class="result-table">
+        <tr><th colspan="2">Result</th></tr>
+        <tr><td>Result</td><td>Pass</td></tr>
+        <tr><td>Percentage</td><td>86.5%</td></tr>
+        <tr><td>Rank</td><td>5</td></tr>
+      </table>
+      <div class="admission-box">
+        <strong>ADMISSION OPEN</strong><br>
+        Play Group to Class 8th Session 2025-26<br>
+        Admission Form Available from 15 Dec 2024<br>
+        <strong>Online & Offline</strong><br>
+        Contact Us: 7364916702 / 9064109172
+      </div>
+    </div>
+  </div>
+
+  <p class="remarks">Remarks: <u><strong>He has been consistently progressing.</strong></u></p>
+
+
+   <div class="signatures">
+      <div>
+        <img src="./img/logo/maganer.jpeg" alt="Manager Signature">
+        <em>Sign. of Manager</em>
+        <hr style="border-top: 2px solid black;">
+      </div>
+      <div>
+        <img src="./img/logo/signature.jpg" alt="Principal Signature">
+        <em>Sign. Of Principal</em>
+        <hr style="border-top: 2px solid black;">
+      </div>
+      <div>
+        <img src="./img/logo/teacher.jpeg" alt="Class Teacher Signature">
+        <em>Sign. of Class Teacher</em>
+        <hr style="border-top: 2px solid black;">
+      </div>
+    </div>
+ <p style="text-align: center; font-weight: bold; margin-top: 5px;">Instructions</p>
+
+
+  <!-- Grading Scale -->
+  <div style="margin-top: 30px;">
+    <p><strong>Grading scale for scholastic areas:</strong> Grades are awarded on a 8-point grading scale as follows–</p>
+    <table class="grade-scale">
+      <tr>
+        <th>Marks Range in (%)</th>
+        <td>91-100</td><td>81-90</td><td>71-80</td><td>61-70</td>
+        <td>51-60</td><td>41-50</td><td>32-40</td>
+      </tr>
+      <tr>
+        <th>Grade</th>
+        <td>A+</td><td>A</td><td>B+</td><td>B</td><td>C+</td><td>C</td><td>D</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
